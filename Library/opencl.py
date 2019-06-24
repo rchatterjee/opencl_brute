@@ -177,13 +177,14 @@ class opencl_interface:
 
                 pwLen = len(pw)
                 assert paddedLenFunc(pwLen) <= inBufSize_bytes, \
-                    "password #" + str(i) + ", '" + pw.decode() + "' (length " + str(pwLen) + ") exceeds the input buffer (length " + str(inBufSize_bytes) + ") when padded"
+                   "password #{}, {!r} (length {}) exceeds the input buffer (length {}) when padded ({})".format(
+                       i, pw, pwLen, inBufSize_bytes, paddedLenFunc(pwLen))
 
                 # Add the length to our pwArray, then pad with 0s to struct size
                 # prev code was np.array([pwLen], dtype=np.uint32), this ultimately is equivalent
                 pwArray.extend((pwLen).to_bytes(4,'little'))
                 pwArray.extend(pw)
-                pwArray.extend([0] * (inBufSize_bytes - pwLen))
+                pwArray.extend([0] * (inBufSize_bytes - pwLen % inBufSize_bytes))
 
             if chunkSize == 0:
                 break

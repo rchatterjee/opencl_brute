@@ -8,7 +8,6 @@ import functools, operator
 from Library import opencl
 from Library.opencl_information import opencl_information
 from binascii import unhexlify, hexlify
-from collections import deque
 from hashlib import pbkdf2_hmac
 
 # ===================================== Test funcs =============================================
